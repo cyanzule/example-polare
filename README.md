@@ -36,10 +36,12 @@ Change the `.env` file to production and then...
   - Understand how to integrate axios for API access
   - Lock access to Admin (special account? so an extra table?)
   - Logout is broken (integrate with Inertia)
-- Figure out why email verification is being ignored
+  - Password isn't being encrypted on update
+  - Verified toggle isn't working
+- Display user stats on Dashboard
+- Allow to edit user stats
 - Move to Heroku for testing
 - Github CI/CD
 - Add bell & whistles
   - Custom front page
-  - Display user stats on Dashboard
   - More user stats?

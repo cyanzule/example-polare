@@ -29,7 +29,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/admin', function () {
-    return Inertia::render('Admin');
+    return Inertia::render('Admin', [
+        'apiUrl' => URL::to('/api'),
+        'csrfUrl' => URL::to('/sanctum/csrf-cookie')
+    ]);
 })->middleware(['auth', 'verified'])->name('admin');
 
 require __DIR__.'/auth.php';
