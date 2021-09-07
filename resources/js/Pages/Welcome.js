@@ -1,17 +1,16 @@
 import React from 'react';
-import Guest from '@/Layouts/Guest';
-import { Link, Head } from '@inertiajs/inertia-react';
+import Framed from '@/Layouts/Framed';
+import { Head } from '@inertiajs/inertia-react';
 
 export default function Welcome(props) {
     return (
-        <Guest
-            auth={props.auth}
-            errors={props.errors}
+        <Framed 
+            errors = {props.errors}
+            auth = {props.auth}
+            canSeeSecret = {props.canSeeSecret}
         >
             <Head title="Welcome" />
             <div className="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
-                
-
                 <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
                     <div className="flex justify-center pt-8 sm:justify-start sm:pt-0">
                         <svg
@@ -240,6 +239,6 @@ export default function Welcome(props) {
                     </div>
                 </div>
             </div>
-        </Guest>
+        </Framed>
     );
 }

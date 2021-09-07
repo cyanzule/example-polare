@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Gate;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,18 +18,29 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
+        'canSeeSecret' => Gate::allows('access-secret'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('welcome');
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('Dashboard', [
+        'canSeeSecret' => Gate::allows('access-secret')
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/secret', function () {
+    Gate::authorize('access-secret');
+
+    return Inertia::render('Secret', [
+        'canSeeSecret' => Gate::allows('access-secret')
+    ]);
+})->middleware(['auth', 'verified'])->name('secret');
+
 Route::get('/admin', function () {
+    Gate::authorize('access-admin');
+
     return Inertia::render('Admin', [
         'apiUrl' => URL::to('/api'),
         'csrfUrl' => URL::to('/sanctum/csrf-cookie')
